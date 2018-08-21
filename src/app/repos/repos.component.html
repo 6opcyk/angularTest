@@ -1,0 +1,31 @@
+<div class="container" style="margin-top: 50px">
+	<h2>Repositories</h2>
+	<hr>
+
+	<div class="list-group-item list-item"
+		*ngFor = "let repo of repos"
+		(click) = "openModal(modal, repo)">
+
+		<h4><b>{{ repo.name }}</b></h4>
+		<p *ngIf = "repo.description; else no_descr">{{ repo.description }}</p>
+		<ng-template #no_descr>
+			<p>No description!</p>
+		</ng-template>
+
+	</div>
+
+	<ng-template #modal >
+			<div class="modal-header">
+				<b>{{ repo.name }}</b>
+			</div>
+			<div class="modal-body">
+				<p>Description: {{ repo.description }}</p>
+				<p>Language: {{ repo.language }}</p>
+				<p *ngIf = "repo.has_issues; else has_issues_state">Has issues:  &#10004;</p>
+				<ng-template #has_issues_state>
+					<p>Has issues:  &#10006;</p>
+				</ng-template>
+				<a [href]="repo.html_url">Подробнее</a>
+			</div>
+	</ng-template>
+</div>
